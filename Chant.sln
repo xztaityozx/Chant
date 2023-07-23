@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chant.Recognizer.Shared", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Recognizer.Tesseract", "Chant.Recognizer.Tesseract\Chant.Recognizer.Tesseract.csproj", "{B9BCAC77-307D-4190-BF37-34BF44BB5B9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Recognizer.Tesseract.Test", "Chant.Recognizer.Tesseract.Test\Chant.Recognizer.Tesseract.Test.csproj", "{2F822553-97A9-4CC7-9303-E8934A6F615F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B9BCAC77-307D-4190-BF37-34BF44BB5B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9BCAC77-307D-4190-BF37-34BF44BB5B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9BCAC77-307D-4190-BF37-34BF44BB5B9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F822553-97A9-4CC7-9303-E8934A6F615F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F822553-97A9-4CC7-9303-E8934A6F615F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F822553-97A9-4CC7-9303-E8934A6F615F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F822553-97A9-4CC7-9303-E8934A6F615F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
