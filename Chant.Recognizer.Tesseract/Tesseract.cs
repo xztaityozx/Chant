@@ -1,4 +1,81 @@
+﻿using System.Diagnostics;
+using System.Text.Json;
+using Chant.Recognizer.Shared;
+using Microsoft.Extensions.Logging;
+
 namespace Chant.Recognizer.Tesseract;
+
+/// <summary>
+/// TesseractによるOCRを実行するクラス
+/// </summary>
+public class Tesseract : IRecognizer
+{
+    private readonly ILogger<Tesseract> logger;
+    private readonly LaunchConfig launchConfig;
+
+    public Tesseract(ILogger<Tesseract> logger, LaunchConfig launchConfig)
+    {
+        this.logger = logger;
+        this.launchConfig = launchConfig;
+    }
+
+    /// <summary>
+    /// TesseractによるOCRを実行して、読み取った文字列を返す。
+    /// </summary>
+    /// <param name="filePath">画像ファイルへのパス。実行パスからの相対パスでも絶対パスでも良い</param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException">LaunchConfigが有効でないときに投げられる</exception>
+    /// <exception cref="FailedToRecognizeException">Tesseractの終了コードが0以外だと投げられる</exception>
+    public async Task<string> RecognizeAsync(string filePath)
+    {
+        if (launchConfig.Status.IsInvalid)
+        {
+            throw new InvalidOperationException(launchConfig.Status.ErrorMessage);
+        }
+
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo(launchConfig.ExecutionFilePath)
+            {
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                ArgumentList =
+                {
+                    filePath,
+                    "-",
+                    "-l",
+                    launchConfig.Language,
+                    "--psm",
+                    $"{launchConfig.Psm}"
+                },
+                WorkingDirectory = Directory.GetCurrentDirectory()
+            }
+        };
+
+        logger.LogDebug("ExecutionFilePath: {path}", launchConfig.ExecutionFilePath);
+        logger.LogDebug("Language: {language}", launchConfig.Language);
+        logger.LogDebug("Psm: {psm}", launchConfig.Psm);
+        logger.LogDebug("WorkingDirectory: {path}", process.StartInfo.WorkingDirectory);
+        logger.LogDebug(
+            "Argument List: {argument}",
+            JsonSerializer.Serialize(process.StartInfo.ArgumentList)
+        );
+
+        logger.LogDebug("Start Tesseract process");
+        process.Start();
+        await process.WaitForExitAsync();
+        logger.LogDebug("Tesseract process exited. exit code: {code}", process.ExitCode);
+
+        if (process.ExitCode != 0)
+        {
+            throw new FailedToRecognizeException(await process.StandardError.ReadToEndAsync());
+        }
+
+        return await process.StandardOutput.ReadToEndAsync();
+    }
+
+    public string RecognizerName => "Tesseract";
+}
 
 public record LaunchConfig(string ExecutionFilePath, string Language = "jpn", int Psm = 6)
 {
