@@ -1,4 +1,4 @@
-﻿namespace Chant.Recognizer.Shared;
+namespace Chant.Recognizer.Shared;
 
 [Serializable]
 public class FailedToRecognizeException : Exception
