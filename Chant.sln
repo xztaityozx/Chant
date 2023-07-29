@@ -5,9 +5,15 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chant.Recognizer.Shared", "Chant.Recognizer.Shared\Chant.Recognizer.Shared.csproj", "{8D84CAF8-6829-419D-9E34-8DDE98B53482}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Recognizer.Tesseract", "Chant.Recognizer.Tesseract\Chant.Recognizer.Tesseract.csproj", "{B9BCAC77-307D-4190-BF37-34BF44BB5B9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chant.Recognizer.Tesseract", "Chant.Recognizer.Tesseract\Chant.Recognizer.Tesseract.csproj", "{B9BCAC77-307D-4190-BF37-34BF44BB5B9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Recognizer.Tesseract.Test", "Chant.Recognizer.Tesseract.Test\Chant.Recognizer.Tesseract.Test.csproj", "{2F822553-97A9-4CC7-9303-E8934A6F615F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chant.Recognizer.Tesseract.Test", "Chant.Recognizer.Tesseract.Test\Chant.Recognizer.Tesseract.Test.csproj", "{2F822553-97A9-4CC7-9303-E8934A6F615F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{D4F32809-2F71-4CFA-9F45-5316592601BF}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.github\workflows\dotnet-test.yaml = .github\workflows\dotnet-test.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
