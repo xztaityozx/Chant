@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Recognizer.ConsensusU
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Recognizer.ConsensusUnit.Test", "Chant.Recognizer.ConsensusUnit.Test\Chant.Recognizer.ConsensusUnit.Test.csproj", "{BF52802D-8251-41A2-94EC-CC9734E42E52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Gate", "Chant.Gate\Chant.Gate.csproj", "{C821488D-BCA9-4651-9691-DFF547933276}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.YukiChant", "Chant.YukiChant\Chant.YukiChant.csproj", "{DDEAAA1A-A558-4176-A43E-A942841F2C24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,14 @@ Global
 		{BF52802D-8251-41A2-94EC-CC9734E42E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF52802D-8251-41A2-94EC-CC9734E42E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF52802D-8251-41A2-94EC-CC9734E42E52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C821488D-BCA9-4651-9691-DFF547933276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C821488D-BCA9-4651-9691-DFF547933276}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C821488D-BCA9-4651-9691-DFF547933276}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C821488D-BCA9-4651-9691-DFF547933276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDEAAA1A-A558-4176-A43E-A942841F2C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDEAAA1A-A558-4176-A43E-A942841F2C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDEAAA1A-A558-4176-A43E-A942841F2C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDEAAA1A-A558-4176-A43E-A942841F2C24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
