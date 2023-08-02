@@ -15,9 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目
 		.github\workflows\dotnet-test.yaml = .github\workflows\dotnet-test.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Recognizer.Google", "Chant.Recognizer.Google\Chant.Recognizer.Google.csproj", "{4F557BD0-DD37-49F8-B34C-08E76603FCE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chant.Recognizer.Google", "Chant.Recognizer.Google\Chant.Recognizer.Google.csproj", "{4F557BD0-DD37-49F8-B34C-08E76603FCE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Recognizer.Google.Test", "Chant.Recognizer.Google.Test\Chant.Recognizer.Google.Test.csproj", "{E6BE2180-E689-4186-B359-E86B42EF02B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chant.Recognizer.Google.Test", "Chant.Recognizer.Google.Test\Chant.Recognizer.Google.Test.csproj", "{E6BE2180-E689-4186-B359-E86B42EF02B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chant.Recognizer.Windows", "Chant.Recognizer.Windows\Chant.Recognizer.Windows.csproj", "{823006F3-9520-447F-AF70-A316720CECD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Recognizer.Windows.Test", "Chant.Recognizer.Windows.Test\Chant.Recognizer.Windows.Test.csproj", "{9B0B7DD2-9783-4B4F-A88A-C79CC7AB5E61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{E6BE2180-E689-4186-B359-E86B42EF02B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6BE2180-E689-4186-B359-E86B42EF02B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6BE2180-E689-4186-B359-E86B42EF02B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{823006F3-9520-447F-AF70-A316720CECD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{823006F3-9520-447F-AF70-A316720CECD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{823006F3-9520-447F-AF70-A316720CECD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{823006F3-9520-447F-AF70-A316720CECD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B0B7DD2-9783-4B4F-A88A-C79CC7AB5E61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B0B7DD2-9783-4B4F-A88A-C79CC7AB5E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B0B7DD2-9783-4B4F-A88A-C79CC7AB5E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B0B7DD2-9783-4B4F-A88A-C79CC7AB5E61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
