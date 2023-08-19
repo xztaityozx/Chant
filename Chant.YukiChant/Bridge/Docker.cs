@@ -12,7 +12,7 @@ namespace Chant.YukiChant.Bridge;
 /// </summary>
 public class Docker : IYukiChantBridge
 {
-    private const string imageName = "chant/yukichant-node18";
+    private const string ImageName = "chant/yukichant-node18";
     private readonly DockerClient dockerClient;
     private readonly ILogger<Docker> logger;
 
@@ -36,7 +36,7 @@ public class Docker : IYukiChantBridge
                 {
                     {
                         "reference",
-                        new Dictionary<string, bool> { { imageName, true } }
+                        new Dictionary<string, bool> { { ImageName, true } }
                     }
                 }
             }
@@ -66,7 +66,7 @@ ENTRYPOINT ["chant"]
             StartInfo = new ProcessStartInfo
             {
                 FileName = "docker",
-                Arguments = $"build -t {imageName} .",
+                Arguments = $"build -t {ImageName} .",
                 WorkingDirectory = context,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -118,7 +118,7 @@ ENTRYPOINT ["chant"]
             var container = await dockerClient.Containers.CreateContainerAsync(
                 new CreateContainerParameters
                 {
-                    Image = imageName,
+                    Image = ImageName,
                     Cmd = mode switch
                     {
                         // inputの受け取り方次第なんだけど、最後の改行とかが削除されてて思った通りのエンコード結果にならないかも…
