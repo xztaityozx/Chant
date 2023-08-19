@@ -1,0 +1,3 @@
+[submodule "Chant.YukiChant/yukichant/yukichant"]
+	path = Chant.YukiChant/yukichant/yukichant
+	url = https://github.com/amanoese/yukichant
