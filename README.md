@@ -7,6 +7,7 @@
 # 使い方
 
 ```console
+$ cd ./Chant.Command/
 $ dotnet run ./path/to/image_file.png
 ```
 
