@@ -163,8 +163,12 @@ ENTRYPOINT ["chant"]
                 cancellationToken
             );
 
-            // stdoutとstderrがnullな時に空文字列にすると実は良くないのか…？
-            return new YukiChantResult(waitResponse.StatusCode, mode, stdout ?? "", stderr ?? "");
+            return new YukiChantResult(
+                waitResponse.StatusCode,
+                mode,
+                stdout.TrimEnd(),
+                stderr.TrimEnd()
+            );
         }
         catch (DockerApiException e)
         {

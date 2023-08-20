@@ -21,7 +21,7 @@ public partial record ReRecognizeResult(
     public decimal NormalizedDistance => Consumed == 0 ? Distance : Distance / (decimal)Consumed;
 
     private static int GetDeltaSum(IEnumerable<char> a, IEnumerable<char> b, int delta) =>
-        a.Zip(b, (x, y) => x == y ? 0 : delta).Sum();
+        a.Zip(b, (x, y) => x == y ? delta : 0).Sum();
 
     private (char[], char[]) GetHanAndHiraganaList(string str)
     {

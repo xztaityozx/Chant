@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
+using System.Text;
 using System.Text.Json;
 using Chant.Recognizer.Shared;
 using Microsoft.Extensions.Logging;
@@ -39,6 +40,7 @@ public class Tesseract : IRecognizer
             {
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
+                StandardOutputEncoding = Encoding.UTF8,
                 ArgumentList =
                 {
                     filePath,
@@ -89,19 +91,19 @@ public record LaunchConfig(string ExecutionFilePath, string Language = "jpn", in
             // 実行ファイルが存在しないんじゃなんも実行できないので…
             if (!File.Exists(ExecutionFilePath))
             {
-                return (false, "ExecutionFilePath is not exists");
+                return (true, "ExecutionFilePath is not exists");
             }
 
             // psmの範囲は0~13
             if (Psm is < 0 or > 13)
             {
-                return (false, "Psm is invalid");
+                return (true, "Psm is invalid");
             }
 
             // 指定言語が空文字列だとTesseractが起動できない。正直jpn固定でいい
             return string.IsNullOrEmpty(Language)
-                ? (false, "Language is null or empty")
-                : (true, "");
+                ? (true, "Language is null or empty")
+                : (false, "");
         }
     }
 }

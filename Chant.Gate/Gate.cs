@@ -10,10 +10,10 @@ public partial class Gate
 {
     private readonly ILogger<Gate> logger;
     private readonly LevenshteinDistance levenshteinDistance = new();
-    private readonly YukiChant.Data yukichantData = new();
+    private readonly YukiChant.Data yukichantData;
     private readonly Dictionary<string, string[]> misrecognitionTable;
 
-    public Gate(ILogger<Gate> logger)
+    public Gate(ILogger<Gate> logger, YukiChant.Data data)
     {
         this.logger = logger;
 
@@ -27,6 +27,8 @@ public partial class Gate
         misrecognitionTable =
             JsonSerializer.Deserialize<Dictionary<string, string[]>>(stream.BaseStream)
             ?? throw new FileLoadException("misrecognition-table.json が読み込めませんでした");
+
+        yukichantData = data;
     }
 
     /// <summary>
@@ -35,11 +37,10 @@ public partial class Gate
     /// <param name="input">補正したい文字列</param>
     /// <param name="initiator">呼び出し元の名前。ログ用なのでなんでもいい</param>
     /// <returns></returns>
-    public GuideResult Guide(string input, string initiator = "none")
+    public GuideResult Guide(string initiator, string input)
     {
         input = PreProcess(input);
         var original = input;
-
         logger.LogDebug("Chant.Gate は {initiator} から「{input}」を受け取っています", initiator, input);
 
         var history = new List<ReRecognizeResult>();
@@ -62,6 +63,6 @@ public partial class Gate
             sb.Append(result.Result);
         }
 
-        return new GuideResult(original, sb.ToString(), history);
+        return new GuideResult(original, PostProcess(sb.ToString()), history);
     }
 }

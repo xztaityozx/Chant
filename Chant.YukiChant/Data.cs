@@ -55,18 +55,17 @@ public class Data
     /// <exception cref="FailedToLoadYukiChantDataException"></exception>
     private static Dictionary<string, string[]> LoadFromJson(string fileName)
     {
-        using var stream = new StreamReader(
-            Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "submodules",
-                "yukichant",
-                "data",
-                fileName
-            )
-        );
-
-        return JsonSerializer.Deserialize<Dictionary<string, string[]>>(stream.BaseStream)
-            ?? throw new FailedToLoadYukiChantDataException(fileName);
+        return JsonSerializer.Deserialize<Dictionary<string, string[]>>(
+                File.ReadAllText(
+                    Path.Combine(
+                        AppDomain.CurrentDomain.BaseDirectory,
+                        "submodules",
+                        "yukichant",
+                        "data",
+                        fileName
+                    )
+                )
+            ) ?? throw new FailedToLoadYukiChantDataException(fileName);
     }
 
     [Serializable]

@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Chant.Gate\Chant.Gate.csproj" />
     <ProjectReference Include="..\Chant.Recognizer.Shared\Chant.Recognizer.Shared.csproj" />
+    <ProjectReference Include="..\Chant.YukiChant\Chant.YukiChant.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Chant.Command": {
+      "commandName": "Project",
+      "commandLineArgs": "..\\chant-gate\\img\\tegaki.png\r\n--debug\r\n--verbose",
+      "workingDirectory": "C:\\Users\\xztaityozx\\source\\repos\\Chant"
+    }
+  }
+}

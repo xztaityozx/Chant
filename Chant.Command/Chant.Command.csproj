@@ -2,21 +2,29 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LanguageVersion>11</LanguageVersion>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
       <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
       <PackageReference Include="Spectre.Console" Version="0.47.0" />
+      <PackageReference Include="Spectre.Console.Cli" Version="0.47.0" />
+      <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Chant.YukiChant\Chant.YukiChant.csproj" />
+      <ProjectReference Include="..\Chant.Gate\Chant.Gate.csproj" />
+      <ProjectReference Include="..\Chant.Recognizer.ConsensusUnit\Chant.Recognizer.ConsensusUnit.csproj" />
+      <ProjectReference Include="..\Chant.Recognizer.Google\Chant.Recognizer.Google.csproj" />
+      <ProjectReference Include="..\Chant.Recognizer.Shared\Chant.Recognizer.Shared.csproj" />
+      <ProjectReference Include="..\Chant.Recognizer.Tesseract\Chant.Recognizer.Tesseract.csproj" />
+      <ProjectReference Include="..\Chant.Recognizer.Windows\Chant.Recognizer.Windows.csproj" />
     </ItemGroup>
 
 </Project>

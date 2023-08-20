@@ -24,6 +24,22 @@ public partial class Magi
             }
         }
 
+        /// <summary>
+        /// デフォルト設定～。テキトー！
+        /// </summary>
+        public static Config Default =>
+            new()
+            {
+                RecognizerReliability = new Dictionary<string, decimal>
+                {
+                    // GoogleVisionApiは信頼度が一番高いようにしているけど、ほかの2種が一致してれば超えるようにしてる
+                    // GoogleVisionApiが一番高いのは、テキトーに試した感じだと一番精度が高かったから
+                    ["Tesseract"] = 1.0M,
+                    ["Windows"] = 1.0M,
+                    ["VisionApi"] = 1.5M
+                }
+            };
+
         [Serializable]
         public class FailedToLoadMagiConfigFromFileException : Exception
         {

@@ -33,9 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chant.YukiChant", "Chant.Yu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chant.Command", "Chant.Command\Chant.Command.csproj", "{76ABB951-7F6F-4631-83CA-E8A43A0D7824}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Levenshtein", "Levenshtein\Levenshtein.csproj", "{DAC3FA2E-1700-4B1E-A57F-5C75024DAE56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Levenshtein", "Levenshtein\Levenshtein.csproj", "{DAC3FA2E-1700-4B1E-A57F-5C75024DAE56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Levenshtein.Test", "Levenshtein.Test\Levenshtein.Test.csproj", "{FCB426A4-9E87-4746-9EA6-47DC41E68D1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Levenshtein.Test", "Levenshtein.Test\Levenshtein.Test.csproj", "{FCB426A4-9E87-4746-9EA6-47DC41E68D1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
