@@ -13,7 +13,6 @@ public partial class Gate
         "）",
         "（",
         " ",
-        "、",
         "１",
         "２",
         "３",
@@ -24,6 +23,7 @@ public partial class Gate
         "８",
         "９",
         "０",
+        "\n"
     };
 
     [GeneratedRegex(@"[\x21-\x7e\s]")]
@@ -33,7 +33,7 @@ public partial class Gate
     {
         input = input.Trim();
         input = IgnoredStrings.Aggregate(input, (current, s) => current.Replace(s, string.Empty));
-        input = input.Replace(".", "。").Replace(Environment.NewLine, "");
+        input = input.Replace(".", "。").Replace("、", "。").Replace(",", "。");
         input = AsciiRegex().Replace(input, "");
 
         return input.Last() == '。' ? input : input + "。";
