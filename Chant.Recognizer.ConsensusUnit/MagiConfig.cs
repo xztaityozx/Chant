@@ -36,7 +36,7 @@ public partial class Magi
                     // GoogleVisionApiが一番高いのは、テキトーに試した感じだと一番精度が高かったから
                     ["Tesseract"] = 1.0M,
                     ["Windows"] = 1.0M,
-                    ["VisionApi"] = 1.5M
+                    ["GoogleCloudVisionApi"] = 1.5M
                 }
             };
 

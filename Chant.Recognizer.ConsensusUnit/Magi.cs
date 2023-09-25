@@ -22,14 +22,14 @@ public partial class Magi
 
     public void AddRecognizer(IRecognizer recognizer) => recognizers.Add(recognizer);
 
-    public async Task<MagiAnswer> GetAnswerAsync(string imageFile)
+    public async Task<MagiAnswer> GetAnswerAsync(string imageFile, Direction direction)
     {
         var results = await Task.WhenAll(
             recognizers.Select(async recognizer =>
             {
                 var guideResult = gate.Guide(
                     recognizer.RecognizerName,
-                    await recognizer.RecognizeAsync(imageFile)
+                    await recognizer.RecognizeAsync(imageFile, direction)
                 );
                 return (
                     name: recognizer.RecognizerName,
@@ -87,9 +87,9 @@ public partial class Magi
             }
         }
 
-        logger.LogDebug("Magiが多数決の結果を、誤認識テーブルと編集距離を使って誤認識を修正しています");
-        var result = gate.Guide("Magi", chant.ToString());
+        //logger.LogDebug("Magiが多数決の結果を、誤認識テーブルと編集距離を使って誤認識を修正しています");
+        //var result = gate.Guide("Magi", chant.ToString());
 
-        return new MagiAnswer(result.Result, results.Select(r => (r.name, r.text, r.history)));
+        return new MagiAnswer(chant.ToString(), results.Select(r => (r.name, r.text, r.history)));
     }
 }

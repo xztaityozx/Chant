@@ -24,10 +24,11 @@ public class Tesseract : IRecognizer
     /// TesseractによるOCRを実行して、読み取った文字列を返す。
     /// </summary>
     /// <param name="filePath">画像ファイルへのパス。実行パスからの相対パスでも絶対パスでも良い</param>
+    /// <param name="direction">つかってないです。方向指定はLaunchConfigのPsmパラメーターで行います</param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException">LaunchConfigが有効でないときに投げられる</exception>
     /// <exception cref="FailedToRecognizeException">Tesseractの終了コードが0以外だと投げられる</exception>
-    public async Task<string> RecognizeAsync(string filePath)
+    public async Task<string> RecognizeAsync(string filePath, Direction direction)
     {
         if (launchConfig.Status.IsInvalid)
         {
