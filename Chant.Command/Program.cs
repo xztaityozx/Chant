@@ -35,20 +35,27 @@ var verboseOption = new Option<bool>(
 var ocrEngineListOption = new Option<OcrEngine[]>(
     name: "--ocr-engines",
     description: "使用するOCRエンジンを指定します。カンマ区切りです",
-    getDefaultValue: () => new[] { OcrEngine.Tesseract, OcrEngine.Windows }
+    getDefaultValue: () => new[] { OcrEngine.Tesseract, OcrEngine.Windows, OcrEngine.VisionApi }
+);
+
+var directionOption = new Option<Direction>(
+    name: "--direction",
+    description: "読み取る文字の方向を指定します",
+    getDefaultValue: () => Direction.Horizontal
 );
 
 rootCommand.AddArgument(imageFilePathArgument);
 rootCommand.AddOption(debugOption);
 rootCommand.AddOption(verboseOption);
 rootCommand.AddOption(ocrEngineListOption);
+rootCommand.AddOption(directionOption);
 
 rootCommand.SetHandler(
-    async (imageFile, ocrEngines, debug, verbose) =>
+    async (imageFile, ocrEngines, debug, verbose, direction) =>
     {
         try
         {
-            await Handler(imageFile, ocrEngines, debug, verbose);
+            await Handler(imageFile, ocrEngines, debug, verbose, direction);
         }
         catch (FailedToRecognizeException e)
         {
@@ -59,18 +66,25 @@ rootCommand.SetHandler(
     imageFilePathArgument,
     ocrEngineListOption,
     debugOption,
-    verboseOption
+    verboseOption,
+    directionOption
 );
 
 await rootCommand.InvokeAsync(args);
 
-async Task Handler(FileInfo imageFile, OcrEngine[] ocrEngines, bool debug, bool verbose)
+async Task Handler(
+    FileInfo imageFile,
+    OcrEngine[] ocrEngines,
+    bool debug,
+    bool verbose,
+    Direction direction
+)
 {
     var colorMap = new Dictionary<string, Color>
     {
         ["Tesseract"] = Color.Green,
         ["WindowsOcr"] = Color.Blue,
-        ["VisionApi"] = Color.Red,
+        ["GoogleCloudVisionApi"] = Color.Red,
         ["Magi"] = Color.Pink1
     };
     var serviceCollection = new ServiceCollection();
@@ -125,7 +139,7 @@ async Task Handler(FileInfo imageFile, OcrEngine[] ocrEngines, bool debug, bool 
     logger.LogDebug("OCRエンジンは{engines}です", string.Join(",", ocrEngines));
     AnsiConsole.MarkupLine("[bold purple]獣と五感揺らぎ借り。万象を閃光とともに熱を授かり。女神の心眼を極め。[/]");
 
-    var magiAnswer = await magi.GetAnswerAsync(imageFile.FullName);
+    var magiAnswer = await magi.GetAnswerAsync(imageFile.FullName, direction);
     if (verbose)
     {
         AnsiConsole.MarkupLine(
