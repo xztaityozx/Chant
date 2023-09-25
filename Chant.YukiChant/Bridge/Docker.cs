@@ -115,6 +115,8 @@ ENTRYPOINT ["chant"]
 
         try
         {
+            logger.LogDebug("YukiChantコンテナを起動しています");
+            logger.LogDebug("YukiChantは {mode} で起動されます", mode);
             var container = await dockerClient.Containers.CreateContainerAsync(
                 new CreateContainerParameters
                 {
@@ -162,6 +164,10 @@ ENTRYPOINT ["chant"]
                 container.ID,
                 cancellationToken
             );
+
+            logger.LogDebug("YukiChant コンテナの実行が終了しました");
+            logger.LogDebug("標準出力: {stdout}", stdout);
+            logger.LogDebug("標準エラー出力: {stderr}", stderr);
 
             return new YukiChantResult(
                 waitResponse.StatusCode,
