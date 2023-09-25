@@ -37,6 +37,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Levenshtein", "Levenshtein\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Levenshtein.Test", "Levenshtein.Test\Levenshtein.Test.csproj", "{FCB426A4-9E87-4746-9EA6-47DC41E68D1E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B9AE39AF-2BB1-4BAC-B92F-5E2AF6BFD33F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsNativeOcr", "Tools\WindowsNativeOcr\WindowsNativeOcr.csproj", "{613D5131-076F-4BAB-973E-1C83C1784781}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Recognizer.ConsensusUnit.VMagi", "Chant.Recognizer.ConsensusUnit.VMagi\Chant.Recognizer.ConsensusUnit.VMagi.csproj", "{868C70A8-E175-491B-8625-DB8C17CFDB15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.MediaProcessor", "Chant.MediaProcessor\Chant.MediaProcessor.csproj", "{F111171E-F0CF-4218-927B-100E84F5D5E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.Command.Video", "Chant.Command.Video\Chant.Command.Video.csproj", "{5ED8766C-AB58-45AE-920C-557780372BDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chant.MediaProcessor.Test", "Chant.MediaProcessor.Test\Chant.MediaProcessor.Test.csproj", "{02D9B3B7-0822-4374-80E3-2D171F3C1371}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,9 +111,32 @@ Global
 		{FCB426A4-9E87-4746-9EA6-47DC41E68D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCB426A4-9E87-4746-9EA6-47DC41E68D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCB426A4-9E87-4746-9EA6-47DC41E68D1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{613D5131-076F-4BAB-973E-1C83C1784781}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{613D5131-076F-4BAB-973E-1C83C1784781}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{613D5131-076F-4BAB-973E-1C83C1784781}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{613D5131-076F-4BAB-973E-1C83C1784781}.Release|Any CPU.Build.0 = Release|Any CPU
+		{868C70A8-E175-491B-8625-DB8C17CFDB15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{868C70A8-E175-491B-8625-DB8C17CFDB15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{868C70A8-E175-491B-8625-DB8C17CFDB15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{868C70A8-E175-491B-8625-DB8C17CFDB15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F111171E-F0CF-4218-927B-100E84F5D5E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F111171E-F0CF-4218-927B-100E84F5D5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F111171E-F0CF-4218-927B-100E84F5D5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F111171E-F0CF-4218-927B-100E84F5D5E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ED8766C-AB58-45AE-920C-557780372BDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ED8766C-AB58-45AE-920C-557780372BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ED8766C-AB58-45AE-920C-557780372BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ED8766C-AB58-45AE-920C-557780372BDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02D9B3B7-0822-4374-80E3-2D171F3C1371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02D9B3B7-0822-4374-80E3-2D171F3C1371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02D9B3B7-0822-4374-80E3-2D171F3C1371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02D9B3B7-0822-4374-80E3-2D171F3C1371}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{613D5131-076F-4BAB-973E-1C83C1784781} = {B9AE39AF-2BB1-4BAC-B92F-5E2AF6BFD33F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8D1CA628-3DB5-4529-AEF4-1DB93BB231C8}
