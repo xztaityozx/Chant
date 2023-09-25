@@ -14,36 +14,51 @@ var videoFilePathArgument = new Argument<FileInfo>(
     name: "videoFilePath",
     description: "動画ファイルへのパス"
 );
-var directionOption = new Option<Direction>(
-    name: "--direction",
-    description: "読み取る文字の方向を指定します",
-    getDefaultValue: () => Direction.Horizontal
-);
 var debugOption = new Option<bool>(
     name: "--debug",
     description: "デバッグログをONにします",
     getDefaultValue: () => true
 );
 var chosenCountOption = new Option<int>(
-    name: "--number-of-choices",
+    aliases: new[] { "--number-of-choices", "-n" },
     description: "フレームの中から何枚の画像を選択するかです。",
     getDefaultValue: () => 5
 );
+var binarizationThresholdOption = new Option<int>(
+    aliases: new[] { "--binarization-threshold", "-b" },
+    description: "二値化の閾値です。ImageMagickのthresholdに渡す値です",
+    getDefaultValue: () => 20000
+);
+var directionOption = new Option<Direction>(
+    aliases: new[] { "--direction", "-d" },
+    description: "縦書きか横書きかを指定します",
+    getDefaultValue: () => Direction.Vertical
+);
 
 rootCommand.AddArgument(videoFilePathArgument);
-rootCommand.AddOption(directionOption);
 rootCommand.AddOption(debugOption);
 rootCommand.AddOption(chosenCountOption);
+rootCommand.AddOption(binarizationThresholdOption);
+rootCommand.AddOption(directionOption);
 
 rootCommand.SetHandler(
-    async (videoFile, direction, debug, chosenCount) =>
+    async (videoFile, debug, binarizationThreshold, chosenCount, direction) =>
     {
         using var cancellationTokenSource = new CancellationTokenSource();
         Console.CancelKeyPress += (_, _) => cancellationTokenSource.Cancel();
+        var arguments = new CommandLineArguments(
+            debug,
+            new VMagi.RecognizeRequestParameter(
+                videoFile,
+                direction,
+                chosenCount,
+                binarizationThreshold
+            )
+        );
 
         try
         {
-            await Handler(videoFile, direction, debug, chosenCount, cancellationTokenSource.Token);
+            await Handler(arguments, cancellationTokenSource.Token);
         }
         catch (OperationCanceledException)
         {
@@ -57,22 +72,19 @@ rootCommand.SetHandler(
         }
     },
     videoFilePathArgument,
-    directionOption,
     debugOption,
-    chosenCountOption
+    binarizationThresholdOption,
+    chosenCountOption,
+    directionOption
 );
 
 await rootCommand.InvokeAsync(args);
 
-async Task Handler(
-    FileInfo videoFile,
-    Direction direction,
-    bool debug,
-    int chosenCount,
-    CancellationToken token
-)
+async Task Handler(CommandLineArguments arguments, CancellationToken token)
 {
     token.ThrowIfCancellationRequested();
+
+    var (debug, recognizeRequestParameter) = arguments;
 
     // DIの設定この辺
     // なんというかHandlerの中じゃなくて、rootCommand の組み立てと同時にやった方がいいんかな
@@ -98,10 +110,7 @@ async Task Handler(
     var vMagi = provider.GetRequiredService<VMagi>();
 
     // 読み取りの処理この辺から
-    var vMagiResultSummary = await vMagi.RecognizeAsync(
-        new VMagi.RecognizeRequestParameter(videoFile, direction, chosenCount),
-        token
-    );
+    var vMagiResultSummary = await vMagi.RecognizeAsync(recognizeRequestParameter, token);
 
     AnsiConsole.MarkupLine("[green]認識結果は以下の通りです[/]");
 
@@ -119,7 +128,7 @@ async Task Handler(
             {
                 guideTable.AddRow($"{frame}", original.Trim(), guided);
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 // めっちゃフォーマットが厳しいんだよな…。
                 // マークアップ中にへんなバイナリが入ると例外吐いて落ちちゃう
@@ -155,7 +164,7 @@ async Task Handler(
 
             AnsiConsole.Write(consensusResultTable);
         }
-        catch (InvalidOperationException e)
+        catch (InvalidOperationException)
         {
             // Spectre.Console の例外だけ補足
             // こっちは変なバイナリが入り込むことは少ない…はずなのであんまりここには来ないと思うんだけど
@@ -225,3 +234,5 @@ async Task Handler(
         AnsiConsole.MarkupLine("[green]呪文の発動が完了しました[/]");
     }
 }
+
+record CommandLineArguments(bool Debug, VMagi.RecognizeRequestParameter RecognizeRequestParameter);

@@ -1,9 +1,6 @@
 using System.Diagnostics;
-using System.Text;
-using System.Text.RegularExpressions;
 using Docker.DotNet;
 using Docker.DotNet.Models;
-using ICSharpCode.SharpZipLib.Tar;
 using Microsoft.Extensions.Logging;
 
 namespace Chant.MediaProcessor;
@@ -107,11 +104,13 @@ ENTRYPOINT ["convert"]
     /// </summary>
     /// <param name="videoFileInfo"></param>
     /// <param name="outputDirectory"></param>
+    /// <param name="size"></param>
     /// <param name="token"></param>
     /// <returns></returns>
     public async Task<string[]> ExtractFrameImageAsync(
         FileInfo videoFileInfo,
         string outputDirectory,
+        string size,
         CancellationToken token
     )
     {
@@ -126,7 +125,7 @@ ENTRYPOINT ["convert"]
             new CreateContainerParameters
             {
                 Image = FFMpegImageName,
-                Cmd = new[] { "-i", "/input.mp4", "-s", "320x240", "/output/%04d.png" },
+                Cmd = new[] { "-i", "/input.mp4", "-s", size, "/output/%04d.png" },
                 HostConfig = new HostConfig
                 {
                     AutoRemove = true,

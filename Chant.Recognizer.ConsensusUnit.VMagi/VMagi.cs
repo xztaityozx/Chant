@@ -31,10 +31,12 @@ public class VMagi
     /// <param name="VideoFileInfo">動画ファイルのFileInfo</param>
     /// <param name="Direction">縦書きか横書きか</param>
     /// <param name="ChosenCount">動画から何枚の画像を取り出すか。取り出すフレームはランダム</param>
+    /// <param name="BinarizationThreshold">二値化の閾値。ImageMagickのthresholdに渡す値</param>
     public record RecognizeRequestParameter(
         FileInfo VideoFileInfo,
         Direction Direction,
-        int ChosenCount
+        int ChosenCount,
+        int BinarizationThreshold
     );
 
     /// <summary>
@@ -76,6 +78,17 @@ public class VMagi
             var frames = await preProcessor.ExtractFrameImageAsync(
                 parameter.VideoFileInfo,
                 workDir,
+                parameter.Direction switch
+                {
+                    Direction.Horizontal => "320x240",
+                    Direction.Vertical => "240x320",
+                    _
+                        => throw new ArgumentOutOfRangeException(
+                            nameof(parameter),
+                            parameter.Direction,
+                            "縦書きか横書きかを指定してください"
+                        )
+                },
                 token
             );
 
@@ -85,7 +98,10 @@ public class VMagi
             var lengthConsensus = new Dictionary<int, int>();
             var consensus = new List<Dictionary<char, int>>();
 
-            var tasks = selectedImages.Select(image => Worker(new FileInfo(image), workDir, token));
+            var tasks = selectedImages.Select(
+                image =>
+                    Worker(new FileInfo(image), workDir, parameter.BinarizationThreshold, token)
+            );
             var consensusSources = await Task.WhenAll(tasks);
 
             var recognizerResults = new List<(string Original, string Guided, int Frame)>();
@@ -154,6 +170,7 @@ public class VMagi
     private async Task<(int FrameNumber, string RecognizedText)> Worker(
         FileSystemInfo imageFileInfo,
         string workDir,
+        int binarizationThreshold,
         CancellationToken token
     )
     {
@@ -185,7 +202,7 @@ public class VMagi
         var binarizedImage = await preProcessor.BinarizeAsync(
             imageFileInfo.FullName,
             workDir,
-            20000,
+            binarizationThreshold,
             token
         );
         logger.LogDebug("画像ファイルの二値化が完了しました。出力ファイル: {image}", binarizedImage);
