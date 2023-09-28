@@ -26,7 +26,7 @@ var chosenCountOption = new Option<int>(
 );
 var binarizationThresholdOption = new Option<int>(
     aliases: new[] { "--binarization-threshold", "-b" },
-    description: "二値化の閾値です。ImageMagickのthresholdに渡す値です",
+    description: "二値化の閾値です。ImageMagickのthresholdに渡す値です。負数にすると二値化処理をスキップします",
     getDefaultValue: () => 20000
 );
 var directionOption = new Option<Direction>(
@@ -34,15 +34,21 @@ var directionOption = new Option<Direction>(
     description: "縦書きか横書きかを指定します",
     getDefaultValue: () => Direction.Vertical
 );
+var resizeOption = new Option<bool>(
+    aliases: new[] { "--resize", "-r" },
+    description: "抽出したフレームをリサイズするかどうかです",
+    getDefaultValue: () => false
+);
 
 rootCommand.AddArgument(videoFilePathArgument);
 rootCommand.AddOption(debugOption);
 rootCommand.AddOption(chosenCountOption);
 rootCommand.AddOption(binarizationThresholdOption);
 rootCommand.AddOption(directionOption);
+rootCommand.AddOption(resizeOption);
 
 rootCommand.SetHandler(
-    async (videoFile, debug, binarizationThreshold, chosenCount, direction) =>
+    async (videoFile, debug, binarizationThreshold, chosenCount, direction, resize) =>
     {
         using var cancellationTokenSource = new CancellationTokenSource();
         Console.CancelKeyPress += (_, _) => cancellationTokenSource.Cancel();
@@ -52,7 +58,8 @@ rootCommand.SetHandler(
                 videoFile,
                 direction,
                 chosenCount,
-                binarizationThreshold
+                binarizationThreshold,
+                resize
             )
         );
 
@@ -75,7 +82,8 @@ rootCommand.SetHandler(
     debugOption,
     binarizationThresholdOption,
     chosenCountOption,
-    directionOption
+    directionOption,
+    resizeOption
 );
 
 await rootCommand.InvokeAsync(args);
@@ -126,7 +134,11 @@ async Task Handler(CommandLineArguments arguments, CancellationToken token)
         {
             try
             {
-                guideTable.AddRow($"{frame}", original.Trim(), guided);
+                guideTable.AddRow(
+                    $"{frame}",
+                    original.Replace("\n\r", "").Replace("\n", ""),
+                    guided
+                );
             }
             catch (InvalidOperationException)
             {

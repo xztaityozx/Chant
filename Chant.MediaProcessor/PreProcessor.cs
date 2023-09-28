@@ -105,12 +105,14 @@ ENTRYPOINT ["convert"]
     /// <param name="videoFileInfo"></param>
     /// <param name="outputDirectory"></param>
     /// <param name="size"></param>
+    /// <param name="resize"></param>
     /// <param name="token"></param>
     /// <returns></returns>
     public async Task<string[]> ExtractFrameImageAsync(
         FileInfo videoFileInfo,
         string outputDirectory,
         string size,
+        bool resize,
         CancellationToken token
     )
     {
@@ -125,7 +127,9 @@ ENTRYPOINT ["convert"]
             new CreateContainerParameters
             {
                 Image = FFMpegImageName,
-                Cmd = new[] { "-i", "/input.mp4", "-s", size, "/output/%04d.png" },
+                Cmd = resize
+                    ? new[] { "-i", "/input.mp4", "-s", size, "/output/%04d.png" }
+                    : new[] { "-i", "/input.mp4", "/output/%04d.png" },
                 HostConfig = new HostConfig
                 {
                     AutoRemove = true,

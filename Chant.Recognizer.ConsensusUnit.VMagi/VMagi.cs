@@ -36,7 +36,8 @@ public class VMagi
         FileInfo VideoFileInfo,
         Direction Direction,
         int ChosenCount,
-        int BinarizationThreshold
+        int BinarizationThreshold,
+        bool Resize
     );
 
     /// <summary>
@@ -89,6 +90,7 @@ public class VMagi
                             "縦書きか横書きかを指定してください"
                         )
                 },
+                parameter.Resize,
                 token
             );
 
@@ -198,19 +200,27 @@ public class VMagi
             frameNumber
         );
 
-        logger.LogDebug("画像ファイルの二値化を開始しています");
-        var binarizedImage = await preProcessor.BinarizeAsync(
-            imageFileInfo.FullName,
-            workDir,
-            binarizationThreshold,
-            token
-        );
-        logger.LogDebug("画像ファイルの二値化が完了しました。出力ファイル: {image}", binarizedImage);
+        var targetFilePath = imageFileInfo.FullName;
+        if (binarizationThreshold < 0)
+        {
+            logger.LogDebug("二値化の閾値が負数だったため、二値化処理をスキップしています");
+        }
+        else
+        {
+            logger.LogDebug("画像ファイルの二値化を開始しています");
+            targetFilePath = await preProcessor.BinarizeAsync(
+                imageFileInfo.FullName,
+                workDir,
+                binarizationThreshold,
+                token
+            );
+            logger.LogDebug("画像ファイルの二値化が完了しました。出力ファイル: {image}", targetFilePath);
+        }
 
         var recognizer = recognizerFactory.Create();
         logger.LogDebug("使用するOCRエンジンは {r} です", recognizer.RecognizerName);
         logger.LogDebug("フレーム番号 {f} を {r} で読み取っています", frameNumber, recognizer.RecognizerName);
-        var recognizedText = await recognizer.RecognizeAsync(binarizedImage, Direction.Vertical);
+        var recognizedText = await recognizer.RecognizeAsync(targetFilePath, Direction.Vertical);
         logger.LogDebug("フレーム番号 {f} の 読み取り結果は「{r}」でした", frameNumber, recognizedText);
 
         return (frameNumber, recognizedText);
