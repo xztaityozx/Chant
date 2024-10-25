@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="OpenCvSharp4" Version="4.10.0.20240616" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="asset\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="asset\template.png" />
+      <EmbeddedResource Include="asset\template.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
+</Project>
